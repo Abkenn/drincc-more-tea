@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.Resource;
 
 namespace Drincc
 {
@@ -9,14 +7,25 @@ namespace Drincc
     {
         public static void Main(string[] args)
         {
+            const string allowedOrigins = "_myAllowSpecificOrigins";
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
+            builder.Services.AddCors(options =>
+            options.AddPolicy(
+                name: allowedOrigins,
+                policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000/")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                }));
+
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -30,6 +39,8 @@ namespace Drincc
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(allowedOrigins);
 
             app.UseAuthentication();
             app.UseAuthorization();
