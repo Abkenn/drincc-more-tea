@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Drincc.Migrations
+namespace Drincc.DAL.Migrations
 {
     public partial class CreateInitialSchema : Migration
     {

@@ -1,4 +1,5 @@
-﻿using Drincc.DAL.DTOs;
+﻿using Drincc.DAL.Data;
+using Drincc.DAL.DTOs;
 using Drincc.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,11 @@ namespace Drincc.API
             new Tea{Id = 1, Name = "Test Tea 1"},
             new Tea{Id = 2, Name = "Test Tea 2"}
         };
+
+        public TeaController(DataContext dataContext)
+        {
+
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tea>>> Get()

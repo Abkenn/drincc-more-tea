@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Drincc.Migrations
+namespace Drincc.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220628213803_CreateInitialSchema")]
+    [Migration("20220628221544_CreateInitialSchema")]
     partial class CreateInitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

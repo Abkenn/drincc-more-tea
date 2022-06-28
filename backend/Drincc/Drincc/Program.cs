@@ -30,6 +30,7 @@ namespace Drincc
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<DbContext, DataContext>();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
