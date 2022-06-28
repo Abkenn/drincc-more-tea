@@ -1,15 +1,16 @@
+using Drincc.DAL.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 
 namespace Drincc
 {
     public class Program
     {
+        // CORS policy name
+        private static readonly string allowedOrigins = "_myAllowSpecificOrigins";
         public static void Main(string[] args)
         {
-            // CORS policy name
-            const string allowedOrigins = "_myAllowSpecificOrigins";
-
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -25,6 +26,10 @@ namespace Drincc
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllers();
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
