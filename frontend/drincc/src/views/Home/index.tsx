@@ -8,13 +8,11 @@ const Home: React.FunctionComponent = () => {
     getForecast()
       .then((response: unknown) => setForecast(response));
   }, []);
-  return forecast !== null
-    ? (
-      <div>
-        {JSON.stringify(forecast)}
-      </div>
-    )
-    : null;
+  return (
+    <div>
+      {JSON.stringify(forecast)}
+    </div>
+  );
 };
 
 export default Home;
