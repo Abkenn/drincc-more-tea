@@ -1,16 +1,125 @@
-import { useEffect, useState } from 'react';
-import { getForecast } from '../../api/weather';
+import { useEffect, useRef, useState } from 'react';
+import { uid } from 'uid';
+import { getTeas, deleteTea, getTea, updateTea, addTea } from '../../api/tea';
+import { ApiResponse } from '../../interfaces/ApiResopnse.interface';
+import { Tea } from '../../types/Tea.type';
+import { debounce, isNonEmptyArray, isNonEmptyString } from '../../utils';
 
 const Home: React.FunctionComponent = () => {
-  const [forecast, setForecast] = useState<unknown>();
+  const [teaList, setTeaList] = useState<Tea[]>([]);
+  const [foundTea, setFoundTea] = useState<Tea | null>(null);
+  const [teaIdForSearch, setTeaIdForSearch] = useState<string>();
+  const [teaNameToUpdate, setTeaNameToUpdate] = useState<string>();
+  const [teaNameToAdd, setTeaNameToAdd] = useState<string>();
+  const debouncer = useRef(debounce(uid(), 200));
+
+  const onDelete = (id: number) => deleteTea(id)
+    .then(() => setTeaList(teaList.filter(tea => tea.id !== id)));
+
+  const onEdit = () => updateTea({
+    id: foundTea?.id,
+    name: teaNameToUpdate
+  } as Tea)
+    .then((response: unknown) => {
+      const { payload } = (response as ApiResponse).data;
+      const updatedTea = payload as Tea;
+      let updatedList = [] as Tea[];
+      teaList.forEach((prevTea: Tea) => updatedList.push({ ...prevTea, name: prevTea.id === updatedTea.id ? updatedTea.name : prevTea.name }))
+      setTeaList(updatedList);
+    });
+
+  const onAdd = () => addTea({ name: teaNameToAdd } as Partial<Tea>)
+    .then((response: unknown) => {
+      const { payload } = (response as ApiResponse).data;
+      const updatedTea = payload as Tea;
+      setTeaList(prevList => [
+        ...prevList,
+        updatedTea
+      ]);
+    });
+
+  const onChangeSearchInput = (value: string) => {
+    setTeaIdForSearch('');
+    debouncer.current(() => {
+      setTeaIdForSearch(value);
+    });
+  }
+
+  const onChangeEditInput = (value: string) => setTeaNameToUpdate(value);
+  const onChangeAddInput = (value: string) => setTeaNameToAdd(value);
 
   useEffect(() => {
-    getForecast()
-      .then((response: unknown) => setForecast(response));
+    getTeas()
+      .then((response: unknown) => {
+        const { payload } = (response as ApiResponse).data;
+        setTeaList(payload as Tea[])
+      });
   }, []);
+
+  useEffect(() => {
+    if (isNonEmptyString(teaIdForSearch)) {
+      getTea(Number(teaIdForSearch))
+        .then((response: unknown) => {
+          const { payload } = (response as ApiResponse).data;
+          setFoundTea(payload as Tea)
+        })
+        .catch(() => setFoundTea(null));
+    } else {
+      setFoundTea(null);
+    }
+  }, [teaIdForSearch]);
+
   return (
     <div>
-      {JSON.stringify(forecast)}
+      <div>
+        {isNonEmptyArray(teaList) ? teaList
+          .map(tea => (
+            <button
+              key={uid()}
+              onClick={() => onDelete(tea.id)}
+            >
+              {tea.name}
+            </button>
+          )) : (
+          <div>
+            The tea list is empty...
+          </div>
+        )}
+      </div>
+
+      <div>
+        <input
+          placeholder="id"
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChangeSearchInput(event.target.value)}
+        />
+      </div>
+
+      {foundTea === null ? (
+        <div>
+          <input
+            placeholder="add new tea"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChangeAddInput(String(event.target.value))}
+          />
+          <div>
+            <button onClick={() => onAdd()}>Add</button>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div>
+            Found this tea: {foundTea?.name}
+          </div>
+
+          <input
+            placeholder={`rename ${foundTea?.name}`}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChangeEditInput(event.target.value)}
+          />
+
+          <div>
+            <button onClick={() => onEdit()}>Edit</button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

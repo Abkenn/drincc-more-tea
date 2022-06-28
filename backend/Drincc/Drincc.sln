@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drincc", "Drincc\Drincc.csproj", "{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Drincc", "Drincc\Drincc.csproj", "{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Drincc.DAL", "Drincc.DAL\Drincc.DAL.csproj", "{B6F4FD34-B029-4455-9B71-23E03BE2AF86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Drincc.API", "Drincc.API\Drincc.API.csproj", "{6B798B45-3503-4A3A-8908-5802B0E97C8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drincc.Extensions", "Drincc.Extensions\Drincc.Extensions.csproj", "{4667201F-9D85-41E1-926F-A5F23ED60B0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6F4FD34-B029-4455-9B71-23E03BE2AF86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6F4FD34-B029-4455-9B71-23E03BE2AF86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6F4FD34-B029-4455-9B71-23E03BE2AF86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6F4FD34-B029-4455-9B71-23E03BE2AF86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B798B45-3503-4A3A-8908-5802B0E97C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B798B45-3503-4A3A-8908-5802B0E97C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B798B45-3503-4A3A-8908-5802B0E97C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B798B45-3503-4A3A-8908-5802B0E97C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4667201F-9D85-41E1-926F-A5F23ED60B0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4667201F-9D85-41E1-926F-A5F23ED60B0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4667201F-9D85-41E1-926F-A5F23ED60B0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4667201F-9D85-41E1-926F-A5F23ED60B0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

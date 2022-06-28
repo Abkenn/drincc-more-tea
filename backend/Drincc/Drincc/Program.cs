@@ -7,27 +7,26 @@ namespace Drincc
     {
         public static void Main(string[] args)
         {
+            // CORS policy name
             const string allowedOrigins = "_myAllowSpecificOrigins";
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            var services = builder.Services;
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
-            builder.Services.AddCors(options =>
-            options.AddPolicy(
-                name: allowedOrigins,
-                policy =>
-                {
-                    policy.WithOrigins("http://localhost:3000/")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowAnyOrigin();
-                }));
+            services.AddCors(options =>
+                options.AddPolicy(
+                    name: allowedOrigins,
+                    policy => policy.WithOrigins("http://localhost:3000/").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+            ));
 
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddControllers();
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -44,7 +43,6 @@ namespace Drincc
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
