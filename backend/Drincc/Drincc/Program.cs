@@ -1,4 +1,6 @@
+using Drincc.API.Contracts;
 using Drincc.DAL.Data;
+using Drincc.EF.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
@@ -25,12 +27,20 @@ namespace Drincc
             ));
 
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddScoped<DbContext, DataContext>();
+
+            // Dependencies
+            services.AddScoped<ITeaService, TeaService>();
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 

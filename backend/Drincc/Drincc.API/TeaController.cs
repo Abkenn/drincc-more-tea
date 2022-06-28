@@ -1,6 +1,7 @@
-﻿using Drincc.DAL.Data;
+﻿using Drincc.API.Contracts;
 using Drincc.DAL.DTOs;
 using Drincc.DAL.Models;
+using Drincc.EF.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Drincc.API
@@ -9,68 +10,56 @@ namespace Drincc.API
     [Route("api/[controller]")]
     public class TeaController : ControllerBase
     {
-        private static List<Tea> TeaList = new List<Tea>
-        {
-            new Tea{Id = 1, Name = "Test Tea 1"},
-            new Tea{Id = 2, Name = "Test Tea 2"}
-        };
+        private readonly TeaService service;
 
-        public TeaController(DataContext dataContext)
+        public TeaController(ITeaService service)
         {
-
+            this.service = (TeaService)service;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tea>>> Get()
-            => Ok(new BaseDto(TeaList));
+            => Ok(new BaseDto<IEnumerable<Tea>>(await service.GetAllTeasAsync()));
 
         [HttpGet("{id}")]
         public async Task<ActionResult<List<Tea>>> Get(int id)
         {
-            var tea = TeaList.Find(tea => tea.Id == id);
+            var tea = await service.GetTeaByIdAsync(id);
 
             if (tea == null)
             {
                 return BadRequest("Tea not found.");
             }
 
-            return Ok(new BaseDto(tea));
+            return Ok(new BaseDto<Tea>(tea));
         }
 
         [HttpPost]
-        public async Task<ActionResult<Tea>> AddTea(TeaDto request)
-        {
-            var newTea = new Tea { Id = TeaList.Count + 1, Name = request.Name };
-            TeaList.Add(newTea);
-            return Ok(new BaseDto(newTea));
-        }
+        public async Task<ActionResult<Tea>> AddTea(TeaDto tea)
+            => Ok(new BaseDto<Tea>(await service.AddTeaAsync(tea)));
 
         [HttpPut]
-        public async Task<ActionResult<Tea>> UpdateTea(Tea request)
+        public async Task<ActionResult<Tea>> UpdateTea(Tea teaRequest)
         {
-            var tea = TeaList.Find(tea => tea.Id == request.Id);
+            var tea = await service.UpdateTeaAsync(teaRequest);
 
             if (tea == null)
             {
                 return BadRequest("Tea not found.");
             }
 
-            tea.Name = request.Name;
-
-            return Ok(new BaseDto(tea));
+            return Ok(new BaseDto<Tea>(tea));
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Tea>>> Delete(int id)
         {
-            var tea = TeaList.Find(tea => tea.Id == id);
+            var tea = await service.RemoveTeaAsync(id);
 
             if (tea == null)
             {
                 return BadRequest("Tea not found.");
             }
-
-            TeaList.Remove(tea);
 
             return NoContent();
         }

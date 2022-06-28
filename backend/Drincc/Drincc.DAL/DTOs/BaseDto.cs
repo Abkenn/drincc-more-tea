@@ -1,10 +1,10 @@
 ﻿namespace Drincc.DAL.DTOs
 {
-    public class BaseDto
+    public class BaseDto<T>
     {
         public object? Payload { get; set; }
 
-        public BaseDto(object data)
+        public BaseDto(T data)
            => Payload = data;
     }
 }

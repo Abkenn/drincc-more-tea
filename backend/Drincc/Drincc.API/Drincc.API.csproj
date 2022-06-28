@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Drincc.DAL\Drincc.DAL.csproj" />
+    <ProjectReference Include="..\Drincc.EF.Services\Drincc.EF.Services.csproj" />
   </ItemGroup>
 
 </Project>
