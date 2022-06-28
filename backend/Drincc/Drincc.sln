@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drincc", "Drincc\Drincc.csproj", "{09B5FE5B-3CBA-4096-84CE-6551AF998002}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drincc", "Drincc\Drincc.csproj", "{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{09B5FE5B-3CBA-4096-84CE-6551AF998002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09B5FE5B-3CBA-4096-84CE-6551AF998002}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09B5FE5B-3CBA-4096-84CE-6551AF998002}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09B5FE5B-3CBA-4096-84CE-6551AF998002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{940DE116-59DD-47C4-8112-6FFE8C0B6BE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0267570B-3EA8-4F22-BC9A-1EA88E562806}
+		SolutionGuid = {626DCE4F-94DA-40E9-837A-4046EB410897}
 	EndGlobalSection
 EndGlobal
