@@ -4,6 +4,7 @@ import { getTeas, deleteTea, getTea, updateTea, addTea } from '../../api/tea';
 import { ApiResponse } from '../../interfaces/ApiResopnse.interface';
 import { Tea } from '../../types/Tea.type';
 import { debounce, isNonEmptyArray, isNonEmptyString } from '../../utils';
+import './index.scss';
 
 const Home: React.FunctionComponent = () => {
   const [teaList, setTeaList] = useState<Tea[]>([]);
@@ -106,16 +107,18 @@ const Home: React.FunctionComponent = () => {
             Found this tea: {foundTea?.name}
           </div>
 
-          <input
-            placeholder={`rename ${foundTea?.name}`}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTeaNameToUpdate(event.target.value)}
-          />
-
           <div>
-            <button
-              disabled={isNaN(Number(foundTea.id))}
-              onClick={() => onEdit()}
-            >Edit</button>
+            <input
+              placeholder={`rename ${foundTea?.name}`}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTeaNameToUpdate(event.target.value)}
+            />
+
+            <div>
+              <button
+                disabled={isNaN(Number(foundTea.id))}
+                onClick={() => onEdit()}
+              >Edit</button>
+            </div>
           </div>
         </>
       )}

@@ -1,4 +1,13 @@
 .home {
-  padding-left: 1rem;
-  padding-top: 1rem;
+  > div {
+    padding-left: 1rem;
+  }
+  
+  & div {
+    padding-top: 1rem;
+  }
+
+  button:not(:first-child) {
+    margin-left: 0.5rem;
+  }
 }
