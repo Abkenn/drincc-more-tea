@@ -16,14 +16,15 @@ const Home: React.FunctionComponent = () => {
   const onDelete = (id: number) => deleteTea(id)
     .then(() => setTeaList(teaList.filter(tea => tea.id !== id)));
 
-  const onEdit = () => updateTea(Number(foundTea?.id), { name: teaNameToAdd } as Partial<Tea>)
+  const onEdit = () => updateTea(Number(foundTea?.id), { name: teaNameToUpdate } as Partial<Tea>)
     .then((response: unknown) => {
       const { payload } = (response as ApiResponse).data;
       const updatedTea = payload as Tea;
       let updatedList = [] as Tea[];
       teaList.forEach((prevTea: Tea) => updatedList.push({ ...prevTea, name: prevTea.id === updatedTea.id ? updatedTea.name : prevTea.name }))
       setTeaList(updatedList);
-    });
+    })
+    .finally(() => setTeaNameToUpdate(''));
 
   const onAdd = () => addTea({ name: teaNameToAdd } as Partial<Tea>)
     .then((response: unknown) => {
@@ -33,7 +34,8 @@ const Home: React.FunctionComponent = () => {
         ...prevList,
         updatedTea
       ]);
-    });
+    })
+    .finally(() => setTeaNameToAdd(''));
 
   const onChangeSearchInput = (value: string) => {
     setTeaIdForSearch('');

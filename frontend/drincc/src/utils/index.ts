@@ -3,7 +3,7 @@ export const isNonEmptyArray = (value: Array<unknown>) => Array.isArray(value) &
 
 export const isNonEmptyString = (value: unknown) => typeof value === 'string' && value !== '';
 
-export const debounce = (id: number | string, delay: number | undefined = 300): (callback: () => void) => void => {
+export const debounce = (id: number | string, delay?: number): (callback: () => void) => void => {
   const timers: Dictionary<NodeJS.Timeout> = {};
 
   return (callback) => {
@@ -11,6 +11,6 @@ export const debounce = (id: number | string, delay: number | undefined = 300): 
       clearTimeout(timers[id]);
     }
 
-    timers[id] = setTimeout(callback, delay);
+    timers[id] = setTimeout(callback, delay ?? 300);
   };
 };
