@@ -7,6 +7,6 @@ namespace Drincc.DAL.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Tea> Teas { get; set; }
+        public DbSet<Tea> Teas => Set<Tea>();
     }
 }

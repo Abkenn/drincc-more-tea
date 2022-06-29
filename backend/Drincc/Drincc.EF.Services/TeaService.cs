@@ -29,9 +29,9 @@ namespace Drincc.EF.Services
             return newTea;
         }
 
-        public async Task<Tea?> UpdateTeaAsync(Tea request)
+        public async Task<Tea?> UpdateTeaAsync(int id, Tea request)
         {
-            var tea = await GetTeaByIdAsync(request.Id);
+            var tea = await GetTeaByIdAsync(id);
 
             if (tea != null)
             {

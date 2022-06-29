@@ -38,10 +38,10 @@ namespace Drincc.API
         public async Task<ActionResult<Tea>> AddTea(TeaDto tea)
             => Ok(new BaseDto<Tea>(await service.AddTeaAsync(tea)));
 
-        [HttpPut]
-        public async Task<ActionResult<Tea>> UpdateTea(Tea teaRequest)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Tea>> UpdateTea(int id, Tea teaRequest)
         {
-            var tea = await service.UpdateTeaAsync(teaRequest);
+            var tea = await service.UpdateTeaAsync(id, teaRequest);
 
             if (tea == null)
             {

@@ -8,7 +8,7 @@ namespace Drincc.API.Contracts
         public Task<List<Tea>> GetAllTeasAsync();
         public Task<Tea?> GetTeaByIdAsync(int id);
         public Task<Tea> AddTeaAsync(TeaDto request);
-        public Task<Tea?> UpdateTeaAsync(Tea request);
+        public Task<Tea?> UpdateTeaAsync(int id, Tea request);
         public Task<Tea?> RemoveTeaAsync(int id);
     }
 }

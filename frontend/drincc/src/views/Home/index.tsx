@@ -16,10 +16,7 @@ const Home: React.FunctionComponent = () => {
   const onDelete = (id: number) => deleteTea(id)
     .then(() => setTeaList(teaList.filter(tea => tea.id !== id)));
 
-  const onEdit = () => updateTea({
-    id: foundTea?.id,
-    name: teaNameToUpdate
-  } as Tea)
+  const onEdit = () => updateTea(Number(foundTea?.id), { name: teaNameToAdd } as Partial<Tea>)
     .then((response: unknown) => {
       const { payload } = (response as ApiResponse).data;
       const updatedTea = payload as Tea;
@@ -45,9 +42,6 @@ const Home: React.FunctionComponent = () => {
     });
   }
 
-  const onChangeEditInput = (value: string) => setTeaNameToUpdate(value);
-  const onChangeAddInput = (value: string) => setTeaNameToAdd(value);
-
   useEffect(() => {
     getTeas()
       .then((response: unknown) => {
@@ -70,7 +64,7 @@ const Home: React.FunctionComponent = () => {
   }, [teaIdForSearch]);
 
   return (
-    <div>
+    <div className="home">
       <div>
         {isNonEmptyArray(teaList) ? teaList
           .map(tea => (
@@ -98,7 +92,7 @@ const Home: React.FunctionComponent = () => {
         <div>
           <input
             placeholder="add new tea"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChangeAddInput(String(event.target.value))}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTeaNameToAdd(event.target.value)}
           />
           <div>
             <button onClick={() => onAdd()}>Add</button>
@@ -112,11 +106,14 @@ const Home: React.FunctionComponent = () => {
 
           <input
             placeholder={`rename ${foundTea?.name}`}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChangeEditInput(event.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTeaNameToUpdate(event.target.value)}
           />
 
           <div>
-            <button onClick={() => onEdit()}>Edit</button>
+            <button
+              disabled={isNaN(Number(foundTea.id))}
+              onClick={() => onEdit()}
+            >Edit</button>
           </div>
         </>
       )}
