@@ -23,7 +23,7 @@ namespace Drincc.EF.Services
 
         public async Task<Tea> AddTeaAsync(TeaDto tea)
         {
-            var newTea = new Tea(name: tea.Name, vendorName: "test vendor");
+            var newTea = new Tea(name: tea.Name, description: "test description", vendorName: "test vendor", quantityInGrams: 100, myRating: 5);
             await context.Teas.AddAsync(newTea);
             await context.SaveChangesAsync();
             return newTea;

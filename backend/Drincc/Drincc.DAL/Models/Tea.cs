@@ -17,14 +17,33 @@
             private set => _brandName = value ?? VendorName;
         }
 
-        public string? YearOfProduction { get; private set; } = string.Empty;
+        public float QuantityInGrams { get; private set; }
+
+        public int MyRating { get; private set; }
+
+        public double MyAverageRating => SessionNotes.Average(sn => sn.Rating);
 
         private DateTime dateBought;
         public DateTime DateBought
         {
             get => dateBought;
-            set => dateBought = value.Date;
+            private set => dateBought = value.Date;
         }
+
+        public string? YearOfProduction { get; private set; } = string.Empty;
+
+        public string? PlaceOfOrigin { get; private set; } = string.Empty;
+
+        public string? Cultivar { get; private set; } = "-";
+
+        public string? Roast { get; private set; } = "-";
+
+        public string? Oxidation { get; private set; } = "-";
+
+        public string? Rating { get; private set; } = "-";
+
+        public int? NumberOfReviews { get; private set; } = 0;
+
 
         // owned entities
         public PriceDetails? PriceDetails { get; private set; }
@@ -35,25 +54,49 @@
 
         private Tea() { }
 
-        public Tea(string name, string vendorName, string? yearOfProduction = null, string? brandName = null, DateTime? dateBought = null)
+        public Tea(string name, string description, string vendorName, float quantityInGrams, int myRating, string? yearOfProduction = null, string? placeOfOrigin = null, string? cultivar = null, string? roast = null, string? oxidation = null, string? rating = null, int? numberOfReviews = null, PriceDetails? priceDetails = null, string? brandName = null, DateTime? dateBought = null)
         {
             Name = name;
+            Description = description;
             VendorName = vendorName;
-            BrandName = brandName ?? vendorName;
-            YearOfProduction = yearOfProduction ?? string.Empty;
+            BrandName = brandName ?? vendorName ?? VendorName;
+            QuantityInGrams = quantityInGrams;
+            MyRating = myRating;
             DateBought = dateBought ?? DateTime.UtcNow.Date;
+            YearOfProduction = yearOfProduction;
+            PlaceOfOrigin = placeOfOrigin;
+            Cultivar = cultivar;
+            Roast = roast;
+            Oxidation = oxidation;
+            Rating = rating;
+            NumberOfReviews = numberOfReviews;
+            if (priceDetails != null)
+            {
+                UpdatePriceDetails(priceDetails);
+            }
         }
 
-        public void UpdateTeaDetails(string? name = null, string? vendorName = null, string? brandName = null)
+        public void UpdateTeaDetails(string? name = null, string? description = null, string? vendorName = null, float? quantityInGrams = null, int? myRating = null, DateTime? dateBought = null, string? yearOfProduction = null, string? placeOfOrigin = null, string? cultivar = null, string? roast = null, string? oxidation = null, string? rating = null, int? numberOfReviews = null, PriceDetails? priceDetails = null, string? brandName = null)
         {
-            if (name == null && vendorName == null && brandName == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             Name = name ?? Name;
+            Description = description ?? Description;
             VendorName = vendorName ?? VendorName;
-            BrandName = brandName ?? vendorName ?? BrandName;
+            BrandName = brandName ?? vendorName ?? VendorName;
+            QuantityInGrams = quantityInGrams ?? QuantityInGrams;
+            MyRating = myRating ?? MyRating;
+            DateBought = dateBought ?? DateBought;
+            YearOfProduction = yearOfProduction ?? YearOfProduction;
+            PlaceOfOrigin = placeOfOrigin ?? PlaceOfOrigin;
+            Cultivar = cultivar ?? Cultivar;
+            Roast = roast ?? Roast;
+            Oxidation = oxidation ?? Oxidation;
+            Rating = rating ?? Rating;
+            NumberOfReviews = numberOfReviews ?? NumberOfReviews;
+            PriceDetails = priceDetails ?? PriceDetails;
+            if (priceDetails != null)
+            {
+                UpdatePriceDetails(priceDetails);
+            }
         }
 
         public void UpdatePriceDetails(PriceDetails priceDetails)

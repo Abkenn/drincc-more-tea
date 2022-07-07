@@ -14,9 +14,19 @@ namespace Drincc.DAL.Data.EntityConfigurations
             teaBuilder.Property(t => t.Name).HasMaxLength(150).IsRequired();
             teaBuilder.Property(t => t.Description).HasMaxLength(300);
             teaBuilder.Property(t => t.VendorName).HasMaxLength(150).IsRequired();
+            teaBuilder.Property(t => t.QuantityInGrams).IsRequired();
             teaBuilder.Property(t => t.BrandName).HasMaxLength(150);
             teaBuilder.Property(t => t.YearOfProduction).HasMaxLength(50);
             teaBuilder.Property(t => t.DateBought).IsRequired();
+            teaBuilder.Property(t => t.PlaceOfOrigin).HasMaxLength(150);
+            teaBuilder.Property(t => t.Cultivar).HasMaxLength(50);
+            teaBuilder.Property(t => t.Roast).HasMaxLength(50);
+            teaBuilder.Property(t => t.Oxidation).HasMaxLength(50);
+            teaBuilder.Property(t => t.Rating).HasMaxLength(50);
+            teaBuilder.Property(t => t.NumberOfReviews);
+            teaBuilder.Property(t => t.MyRating);
+            teaBuilder.Ignore(nameof(Tea.MyAverageRating));
+            teaBuilder.Property(t => t.NumberOfReviews);
 
             teaBuilder.OwnsOne<PriceDetails>(nameof(Tea.PriceDetails), priceDetailsBuilder =>
             {
@@ -61,6 +71,7 @@ namespace Drincc.DAL.Data.EntityConfigurations
 
                 sessionNoteBuilder.Property<long>(foreignKey);
                 sessionNoteBuilder.Property(sn => sn.Note).HasMaxLength(5000);
+                sessionNoteBuilder.Property(sn => sn.Rating);
 
                 sessionNoteBuilder.WithOwner().HasForeignKey(foreignKey);
             });
