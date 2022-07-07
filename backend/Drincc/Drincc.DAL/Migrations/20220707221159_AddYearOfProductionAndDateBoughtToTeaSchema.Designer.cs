@@ -4,6 +4,7 @@ using Drincc.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Drincc.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220707221159_AddYearOfProductionAndDateBoughtToTeaSchema")]
+    partial class AddYearOfProductionAndDateBoughtToTeaSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,7 +174,7 @@ namespace Drincc.DAL.Migrations
 
                             b1.HasKey("TeaId");
 
-                            b1.ToTable("PriceDetails");
+                            b1.ToTable("Teas");
 
                             b1.WithOwner()
                                 .HasForeignKey("TeaId");

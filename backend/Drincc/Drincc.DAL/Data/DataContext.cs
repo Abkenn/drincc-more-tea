@@ -1,4 +1,5 @@
-﻿using Drincc.DAL.Models;
+﻿using Drincc.DAL.Data.EntityConfigurations;
+using Drincc.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Drincc.DAL.Data
@@ -8,5 +9,21 @@ namespace Drincc.DAL.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Tea> Teas => Set<Tea>();
+
+        public DbSet<SessionNote> SessionNotes => Set<SessionNote>();
+
+        public DbSet<PriceDetails> PriceDetails => Set<PriceDetails>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new TeaEntityTypeConfiguration());
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }
