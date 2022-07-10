@@ -19,6 +19,7 @@ namespace Drincc.DAL.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new TeaEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SessionNoteTypeConfiguration());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -4,6 +4,7 @@ using Drincc.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Drincc.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220710223912_UpdateRelationships")]
+    partial class UpdateRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace Drincc.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Note")
                         .IsRequired()
                         .HasMaxLength(5000)
@@ -44,12 +43,15 @@ namespace Drincc.DAL.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<long>("TeaId")
+                    b.Property<int>("TeaId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("TeaId1")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeaId");
+                    b.HasIndex("TeaId1");
 
                     b.ToTable("SessionNotes", (string)null);
                 });
@@ -131,7 +133,7 @@ namespace Drincc.DAL.Migrations
                 {
                     b.HasOne("Drincc.DAL.Models.Tea", "Tea")
                         .WithMany("SessionNotes")
-                        .HasForeignKey("TeaId")
+                        .HasForeignKey("TeaId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

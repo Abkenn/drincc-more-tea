@@ -66,19 +66,7 @@ namespace Drincc.DAL.Data.EntityConfigurations
             });
 
             teaBuilder.Navigation(nameof(Tea.SessionNotes)).UsePropertyAccessMode(PropertyAccessMode.Field);
-
-            teaBuilder.OwnsMany<SessionNote>(nameof(Tea.SessionNotes), sessionNoteBuilder =>
-            {
-                sessionNoteBuilder.ToTable("SessionNotes");
-
-                const string foreignKey = "TeaId";
-
-                sessionNoteBuilder.Property<long>(foreignKey);
-                sessionNoteBuilder.Property(sn => sn.Note).HasMaxLength(5000);
-                sessionNoteBuilder.Property(sn => sn.Rating);
-
-                sessionNoteBuilder.WithOwner().HasForeignKey(foreignKey);
-            });
+            //teaBuilder.HasMany(t => t.SessionNotes).WithOne(sn => sn.Tea);
         }
     }
 }

@@ -4,6 +4,7 @@ using Drincc.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Drincc.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220710185304_UpdateOwnedEntities")]
+    partial class UpdateOwnedEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,38 +23,6 @@ namespace Drincc.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Drincc.DAL.Models.SessionNote", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
-                        .IsRequired()
-                        .HasMaxLength(5000)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Quantity")
-                        .HasColumnType("real");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<long>("TeaId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeaId");
-
-                    b.ToTable("SessionNotes", (string)null);
-                });
 
             modelBuilder.Entity("Drincc.DAL.Models.Tea", b =>
                 {
@@ -125,17 +95,6 @@ namespace Drincc.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teas", (string)null);
-                });
-
-            modelBuilder.Entity("Drincc.DAL.Models.SessionNote", b =>
-                {
-                    b.HasOne("Drincc.DAL.Models.Tea", "Tea")
-                        .WithMany("SessionNotes")
-                        .HasForeignKey("TeaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tea");
                 });
 
             modelBuilder.Entity("Drincc.DAL.Models.Tea", b =>
@@ -249,17 +208,41 @@ namespace Drincc.DAL.Migrations
 
                             b1.HasKey("TeaId");
 
-                            b1.ToTable("PriceDetails");
+                            b1.ToTable("Teas");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TeaId");
+                        });
+
+                    b.OwnsMany("Drincc.DAL.Models.SessionNote", "SessionNotes", b1 =>
+                        {
+                            b1.Property<long>("TeaId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"), 1L, 1);
+
+                            b1.Property<string>("Note")
+                                .IsRequired()
+                                .HasMaxLength(5000)
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("Rating")
+                                .HasColumnType("int");
+
+                            b1.HasKey("TeaId", "Id");
+
+                            b1.ToTable("SessionNotes", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TeaId");
                         });
 
                     b.Navigation("PriceDetails");
-                });
 
-            modelBuilder.Entity("Drincc.DAL.Models.Tea", b =>
-                {
                     b.Navigation("SessionNotes");
                 });
 #pragma warning restore 612, 618
