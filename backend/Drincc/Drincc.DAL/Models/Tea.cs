@@ -25,8 +25,6 @@ namespace Drincc.DAL.Models
 
         public int MyRating { get; private set; }
 
-        public double MyAverageRating => SessionNotes.Average(sn => sn.Rating);
-
         private DateTime dateBought;
         public DateTime DateBought
         {
@@ -54,6 +52,9 @@ namespace Drincc.DAL.Models
 
         private readonly List<SessionNote> _sessionNotes = new();
         public IReadOnlyCollection<SessionNote> SessionNotes => _sessionNotes.AsReadOnly();
+
+        // not mapped
+        public double? MyAverageRating => _sessionNotes.Count == 0 ? 0 : _sessionNotes.Average(sn => sn.Rating);
 
 
         private Tea() { }

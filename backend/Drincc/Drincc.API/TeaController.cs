@@ -35,7 +35,7 @@ namespace Drincc.API
         }
 
         [HttpPost]
-        public async Task<ActionResult<Tea>> AddTea(TeaDto tea)
+        public async Task<ActionResult<Tea>> AddTea(Tea tea)
             => Ok(new BaseDto<Tea>(await service.AddTeaAsync(tea)));
 
         [HttpPut("{id}")]

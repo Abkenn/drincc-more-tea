@@ -1,7 +1,5 @@
 ﻿using Drincc.API.Contracts;
 using Drincc.DAL.Data;
-using Drincc.DAL.DTOs;
-using Drincc.DAL.Enums;
 using Drincc.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,12 +20,11 @@ namespace Drincc.EF.Services
         public async Task<Tea?> GetTeaByIdAsync(int id)
             => await context.Teas.FindAsync(id);
 
-        public async Task<Tea> AddTeaAsync(TeaDto tea)
+        public async Task<Tea> AddTeaAsync(Tea tea)
         {
-            var newTea = new Tea(name: tea.Name, type: TeaCategory.Black, description: "test description", vendorName: "test vendor", quantityInGrams: 100, myRating: 5);
-            await context.Teas.AddAsync(newTea);
+            await context.Teas.AddAsync(tea);
             await context.SaveChangesAsync();
-            return newTea;
+            return tea;
         }
 
         public async Task<Tea?> UpdateTeaAsync(int id, Tea request)
