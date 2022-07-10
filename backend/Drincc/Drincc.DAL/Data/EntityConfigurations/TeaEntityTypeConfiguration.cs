@@ -12,6 +12,10 @@ namespace Drincc.DAL.Data.EntityConfigurations
 
             teaBuilder.HasKey(nameof(Tea.Id));
             teaBuilder.Property(t => t.Name).HasMaxLength(150).IsRequired();
+            teaBuilder.Property(t => t.Type)
+                .HasMaxLength(6)
+                .IsRequired()
+                .HasConversion<string>();
             teaBuilder.Property(t => t.Description).HasMaxLength(300);
             teaBuilder.Property(t => t.VendorName).HasMaxLength(150).IsRequired();
             teaBuilder.Property(t => t.QuantityInGrams).IsRequired();

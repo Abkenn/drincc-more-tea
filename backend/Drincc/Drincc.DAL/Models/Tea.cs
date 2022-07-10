@@ -1,10 +1,14 @@
-﻿namespace Drincc.DAL.Models
+﻿using Drincc.DAL.Enums;
+
+namespace Drincc.DAL.Models
 {
     public class Tea
     {
         public long Id { get; private set; }
 
         public string Name { get; private set; } = string.Empty;
+
+        public TeaCategory Type { get; private set; }
 
         public string Description { get; private set; } = string.Empty;
 
@@ -54,9 +58,27 @@
 
         private Tea() { }
 
-        public Tea(string name, string description, string vendorName, float quantityInGrams, int myRating, string? yearOfProduction = null, string? placeOfOrigin = null, string? cultivar = null, string? roast = null, string? oxidation = null, string? rating = null, int? numberOfReviews = null, PriceDetails? priceDetails = null, string? brandName = null, DateTime? dateBought = null)
+        public Tea(
+            string name,
+            TeaCategory type,
+            string description,
+            string vendorName,
+            float quantityInGrams,
+            int myRating,
+            string? yearOfProduction = null,
+            string? placeOfOrigin = null,
+            string? cultivar = null,
+            string? roast = null,
+            string? oxidation = null,
+            string? rating = null,
+            int? numberOfReviews = null,
+            PriceDetails? priceDetails = null,
+            string? brandName = null,
+            DateTime? dateBought = null
+            )
         {
             Name = name;
+            Type = type;
             Description = description;
             VendorName = vendorName;
             BrandName = brandName ?? vendorName ?? VendorName;
@@ -76,9 +98,25 @@
             }
         }
 
-        public void UpdateTeaDetails(string? name = null, string? description = null, string? vendorName = null, float? quantityInGrams = null, int? myRating = null, DateTime? dateBought = null, string? yearOfProduction = null, string? placeOfOrigin = null, string? cultivar = null, string? roast = null, string? oxidation = null, string? rating = null, int? numberOfReviews = null, PriceDetails? priceDetails = null, string? brandName = null)
+        public void UpdateTeaDetails(string? name = null,
+            TeaCategory? type = null,
+            string? description = null,
+            string? vendorName = null,
+            float? quantityInGrams = null,
+            int? myRating = null,
+            DateTime? dateBought = null,
+            string? yearOfProduction = null,
+            string? placeOfOrigin = null,
+            string? cultivar = null,
+            string? roast = null,
+            string? oxidation = null,
+            string? rating = null,
+            int? numberOfReviews = null,
+            PriceDetails? priceDetails = null,
+            string? brandName = null)
         {
             Name = name ?? Name;
+            Type = type ?? Type;
             Description = description ?? Description;
             VendorName = vendorName ?? VendorName;
             BrandName = brandName ?? vendorName ?? VendorName;
