@@ -2,7 +2,7 @@
 {
     public enum TeaCategory
     {
-        Black,
+        Black = 1,
         Oolong,
         Yellow,
         Green,

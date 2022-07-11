@@ -1,9 +1,11 @@
 using Drincc.API.Contracts;
 using Drincc.DAL.Data;
 using Drincc.EF.Services;
+using Drincc.SwaggerFilters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
+using Newtonsoft.Json.Converters;
 
 namespace Drincc
 {
@@ -32,6 +34,7 @@ namespace Drincc
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 });
             services.AddDbContext<DataContext>(options =>
             {
@@ -42,7 +45,12 @@ namespace Drincc
             services.AddScoped<ITeaService, TeaService>();
 
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+
+            services.AddSwaggerGenNewtonsoftSupport();
+            services.AddSwaggerGen(options =>
+            {
+                options.SchemaFilter<EnumSchemaFilter>();
+            });
 
             var app = builder.Build();
 
