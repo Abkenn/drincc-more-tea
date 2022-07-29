@@ -25,12 +25,7 @@ namespace Drincc.DAL.Models
 
         public int MyRating { get; private set; }
 
-        private DateTime dateBought;
-        public DateTime DateBought
-        {
-            get => dateBought;
-            private set => dateBought = value.Date;
-        }
+        public DateTime DateBought { get; private set; } = DateTime.UtcNow;
 
         public string? YearOfProduction { get; private set; } = string.Empty;
 

@@ -1,0 +1,12 @@
+.teas {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  // align-content: flex-start;
+  // justify-content: flex-start;
+
+  &__select {
+    min-width: 10rem;
+    width: 30rem;
+  }
+}
