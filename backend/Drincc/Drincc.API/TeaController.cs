@@ -52,7 +52,7 @@ namespace Drincc.API
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Tea>>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var tea = await service.RemoveTeaAsync(id);
 
