@@ -12,10 +12,10 @@ export const getTea = (id: number): AxiosPromise => (
 
 export const addTea = (tea: Partial<Tea>): AxiosPromise => (
   axiosInstance.post('/tea', tea)
-)
+);
 export const updateTea = (id: number, tea: Partial<Tea>): AxiosPromise => (
   axiosInstance.put(`/tea/${id}`, tea)
-)
+);
 
 export const deleteTea = (id: number): AxiosPromise => (
   axiosInstance.delete(`/tea/${id}`)

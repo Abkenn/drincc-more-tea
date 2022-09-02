@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Select from 'react-select'
+import Select from 'react-select';
 import './index.scss';
 
 type SelectOptions = { value: number, label: string }[];
@@ -10,10 +10,10 @@ const Teas: React.FunctionComponent = () => {
   const teas: Tea[] = [
     { id: 0, name: 'Tea 1' },
     { id: 1, name: 'Tea 2' },
-    { id: 2, name: 'Tea 3' }
+    { id: 2, name: 'Tea 3' },
   ];
 
-  const getOptions = (): SelectOptions => teas.map(tea => ({ value: tea.id, label: tea.name }));
+  const getOptions = (): SelectOptions => teas.map((tea) => ({ value: tea.id, label: tea.name }));
 
   useEffect(() => {
     // GET /teas/{selectedTeaId}

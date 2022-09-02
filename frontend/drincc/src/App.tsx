@@ -5,11 +5,11 @@ import './App.scss';
 
 const App = () => (
   <BrowserRouter>
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/teas" element={<Teas />} />
-  </Routes>
-</BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/teas" element={<Teas />} />
+    </Routes>
+  </BrowserRouter>
 );
 
 export default App;

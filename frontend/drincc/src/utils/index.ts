@@ -1,4 +1,5 @@
-import { Dictionary } from './../types/Dictionary.type';
+import { Dictionary } from '../types/Dictionary.type';
+
 export const isNonEmptyArray = (value: Array<unknown>) => Array.isArray(value) && (value as unknown[]).length > 0;
 
 export const isNonEmptyString = (value: unknown) => typeof value === 'string' && value !== '';
