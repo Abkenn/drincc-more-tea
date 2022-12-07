@@ -54,11 +54,12 @@
         ],
         "react/function-component-definition": "off",
         "max-len": [
-            "warn",
+            "off",
             {
                 "code": 120
             }
         ],
+        "no-console": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",

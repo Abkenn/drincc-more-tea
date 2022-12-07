@@ -1,3 +1,5 @@
+import { AxiosPromise } from 'axios';
+import { ApiResponse } from '../interfaces/ApiResopnse.interface';
 import { Dictionary } from '../types/Dictionary.type';
 
 export const isNonEmptyArray = (value: Array<unknown>) => Array.isArray(value) && (value as unknown[]).length > 0;
@@ -15,3 +17,5 @@ export const debounce = (id: number | string, delay?: number): (callback: () => 
     timers[id] = setTimeout(callback, delay ?? 300);
   };
 };
+
+export const fetchPayload = (promise: AxiosPromise<unknown>) => promise.then((res) => (res as ApiResponse).data.payload);

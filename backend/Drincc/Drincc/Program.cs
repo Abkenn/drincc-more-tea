@@ -2,7 +2,9 @@ using Drincc.API.Contracts;
 using Drincc.DAL.Data;
 using Drincc.EF.Services;
 using Drincc.SwaggerFilters;
+using Drincc.TransformerConventions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Newtonsoft.Json.Converters;
@@ -30,7 +32,7 @@ namespace Drincc
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services
-                .AddControllers()
+                .AddControllers(options => options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer())))
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
