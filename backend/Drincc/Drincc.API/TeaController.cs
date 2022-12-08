@@ -1,5 +1,4 @@
 ﻿using Drincc.API.Contracts;
-using Drincc.DAL.DTOs;
 using Drincc.DAL.Models;
 using Drincc.EF.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +18,7 @@ namespace Drincc.API
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tea>>> Get()
-            => Ok(new BaseDto<IEnumerable<Tea>>(await service.GetAllTeasAsync()));
+            => Ok(await service.GetAllTeasAsync());
 
         [HttpGet("{id}")]
         public async Task<ActionResult<List<Tea>>> Get(int id)
@@ -31,12 +30,12 @@ namespace Drincc.API
                 return BadRequest("Tea not found.");
             }
 
-            return Ok(new BaseDto<Tea>(tea));
+            return Ok(tea);
         }
 
         [HttpPost]
         public async Task<ActionResult<Tea>> AddTea(Tea tea)
-            => Ok(new BaseDto<Tea>(await service.AddTeaAsync(tea)));
+            => Ok(await service.AddTeaAsync(tea));
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Tea>> UpdateTea(int id, Tea teaRequest)
@@ -48,7 +47,7 @@ namespace Drincc.API
                 return BadRequest("Tea not found.");
             }
 
-            return Ok(new BaseDto<Tea>(tea));
+            return Ok(tea);
         }
 
         [HttpDelete("{id}")]

@@ -1,6 +1,5 @@
 ﻿using Drincc.API.Contracts;
 using Drincc.DAL.DTOs;
-using Drincc.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Drincc.API
@@ -35,10 +34,10 @@ namespace Drincc.API
 
         [HttpGet]
         public ActionResult<TeaDto[]> Get()
-            => Ok(new BaseDto<List<TeaDto>>(teas));
+            => Ok(teas);
 
         [HttpGet("{id}")]
-        public ActionResult<List<Tea>> Get(int id)
+        public ActionResult<List<TeaDto>> Get(int id)
         {
             var tea = teas.FirstOrDefault(tea => tea.Id == id);
 
@@ -47,14 +46,14 @@ namespace Drincc.API
                 return BadRequest("Tea not found.");
             }
 
-            return Ok(new BaseDto<TeaDto>(tea));
+            return Ok(tea);
         }
 
         [HttpPost]
         public ActionResult<TeaDto> AddTea(TeaDto tea)
         {
             teas.Add(tea);
-            return Ok(new BaseDto<TeaDto>(tea));
+            return Ok(tea);
         }
 
         [HttpPut("{id}")]

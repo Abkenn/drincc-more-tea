@@ -18,4 +18,4 @@ export const debounce = (id: number | string, delay?: number): (callback: () => 
   };
 };
 
-export const fetchPayload = (promise: AxiosPromise<unknown>) => promise.then((res) => (res as ApiResponse).data.payload);
+export const fetchPayload = <T>(promise: AxiosPromise<T>): Promise<T> => promise.then<T>((res) => (res as unknown as ApiResponse).data.payload as unknown as T);

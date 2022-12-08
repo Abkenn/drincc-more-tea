@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { getTea, getTeas } from '../../api/teaMock';
+import useDidMount from '../../hooks/useDidMount';
 import { fetchPayload } from '../../utils';
 import './index.scss';
 
@@ -11,29 +12,20 @@ const Teas: React.FunctionComponent = () => {
   const [teas, setTeas] = useState<Tea[] | null>(null);
   const [selectedTea, setSelectedTea] = useState<Tea | null>(null);
   const [selectedTeaId, setSelectedTeaId] = useState<number | undefined>(undefined);
-  const didMountRef = useRef(false);
 
   const getOptions = (): SelectOptions | undefined => teas?.map((tea) => ({ value: tea.id, label: tea.name }));
 
-  const loadTeasOnMount: () => Promise<void> = async () => setTeas(await fetchPayload(getTeas()) as Tea[]);
-  const getSelectedTea: (id: number) => Promise<void> = async (id: number) => setSelectedTea(await fetchPayload(getTea(id)) as Tea);
-
   useEffect(() => {
-    loadTeasOnMount();
+    fetchPayload<Tea[]>(getTeas()).then((teasPayload) => setTeas(teasPayload));
   }, []);
 
-  useEffect(() => {
-    if (didMountRef.current) {
-      // GET /teas/{selectedTeaId}
-      getSelectedTea(Number(selectedTeaId));
-    }
-    didMountRef.current = true;
+  useDidMount(() => {
+    // GET /teas/{selectedTeaId}
+    fetchPayload<Tea>(getTea(Number(selectedTeaId))).then((teaPayload) => setSelectedTea(teaPayload));
   }, [selectedTeaId]);
 
-  useEffect(() => {
-    if (didMountRef.current) {
-      console.log(selectedTea);
-    }
+  useDidMount(() => {
+    console.log(selectedTea);
   }, [selectedTea]);
 
   return (
