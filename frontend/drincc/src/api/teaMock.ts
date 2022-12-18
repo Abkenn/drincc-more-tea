@@ -1,22 +1,22 @@
-import { AxiosPromise } from 'axios';
 import axiosInstance from '../axios';
+import { ApiResponse } from '../types/ApiResponse.type';
 import { Tea } from '../types/Tea.type';
 
-export const getTeas = (): AxiosPromise => (
+export const getTeas = (): ApiResponse<Tea[]> => (
   axiosInstance.get('/mock-tea')
 );
 
-export const getTea = (id: number): AxiosPromise => (
+export const getTea = (id: number): ApiResponse<Tea> => (
   axiosInstance.get(`/mock-tea/${id}`)
 );
 
-export const addTea = (tea: Partial<Tea>): AxiosPromise => (
+export const addTea = (tea: Partial<Tea>): ApiResponse<Tea> => (
   axiosInstance.post('/mock-tea', tea)
 );
-export const updateTea = (id: number, tea: Partial<Tea>): AxiosPromise => (
+export const updateTea = (id: number, tea: Partial<Tea>): ApiResponse<Tea> => (
   axiosInstance.put(`/mock-tea/${id}`, tea)
 );
 
-export const deleteTea = (id: number): AxiosPromise => (
-  axiosInstance.delete(`/mock-tea/${id}`)
+export const deleteTea = (id: number): ApiResponse => (
+  axiosInstance.delete<never>(`/mock-tea/${id}`)
 );
