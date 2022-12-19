@@ -65,7 +65,9 @@
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",
         "react/prop-types": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "comma-dangle": "off",
+        "prefer-promise-reject-errors": "off"
     },
     "ignorePatterns": [
         "**/*.svg",

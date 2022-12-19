@@ -43,7 +43,7 @@ namespace Drincc.API
 
             if (tea == null)
             {
-                return BadRequest("Tea not found.");
+                return BadRequest($"Tea ${id} not found.");
             }
 
             return Ok(tea);
@@ -63,7 +63,7 @@ namespace Drincc.API
 
             if (tea == null)
             {
-                return BadRequest("Tea not found.");
+                return BadRequest($"Tea ${id} not found.");
             }
 
             tea.Name = teaRequest.Name;
@@ -78,7 +78,7 @@ namespace Drincc.API
 
             if (tea == null)
             {
-                return BadRequest("Tea not found.");
+                return BadRequest($"Tea ${id} not found.");
             }
 
             teas.Remove(tea);

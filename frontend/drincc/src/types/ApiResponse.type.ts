@@ -1,7 +1,17 @@
-import { AxiosPromise } from 'axios';
+import { AxiosError } from 'axios';
 import { Dictionary } from './Dictionary.type';
 
-type PayloadConstraint = Dictionary | Array<Dictionary> | string | number | Array<string | number>;
-type ApiPayload<T extends PayloadConstraint> = { payload: T }
+export type PayloadConstraints = Dictionary | Array<Dictionary> | string | number | Array<string | number>;
 
-export type ApiResponse<T extends PayloadConstraint = never> = AxiosPromise<T extends never ? never : ApiPayload<T>>;
+export type ApiData<T extends PayloadConstraints> = { payload: T }
+
+export type ApiResponse<T extends PayloadConstraints = never> = Promise<T extends never ? never : ApiData<T>>;
+
+export type ApiAxiosError = AxiosError<ApiData<string>>;
+
+export type ApiError = AxiosError | ApiErrorResponse;
+
+export type ApiErrorResponse = {
+  message?: string,
+  status?: string
+};

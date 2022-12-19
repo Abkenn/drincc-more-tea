@@ -18,5 +18,5 @@ export const updateTea = (id: number, tea: Partial<Tea>): ApiResponse<Tea> => (
 );
 
 export const deleteTea = (id: number): ApiResponse => (
-  axiosInstance.delete<never>(`/mock-tea/${id}`)
+  axiosInstance.delete(`/mock-tea/${id}`)
 );

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { getTea, getTeas } from '../../api/teaMock';
 import useDidMount from '../../hooks/useDidMount';
+import { getTea, getTeas } from '../../api/teaMock';
+import { ApiError } from '../../types/ApiResponse.type';
 import './index.scss';
 
 type SelectOptions = { value: number, label: string }[];
@@ -15,12 +16,16 @@ const Teas: React.FunctionComponent = () => {
   const getOptions = (): SelectOptions | undefined => teas?.map((tea) => ({ value: tea.id, label: tea.name }));
 
   useEffect(() => {
-    getTeas().then((response) => setTeas(response.data.payload));
+    getTeas()
+      .then((data) => setTeas(data.payload))
+      .catch((error: ApiError) => console.warn(error.message));
   }, []);
 
   useDidMount(() => {
     // GET /teas/{selectedTeaId}
-    getTea(Number(selectedTeaId)).then((response) => setSelectedTea(response.data.payload));
+    getTea(Number(selectedTeaId))
+      .then((data) => setSelectedTea(data.payload))
+      .catch((error: ApiError) => console.warn(error.message));
   }, [selectedTeaId]);
 
   useDidMount(() => {
