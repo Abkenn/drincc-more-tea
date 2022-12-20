@@ -1,0 +1,11 @@
+.daily-clickable-area {
+  &__sessions {
+
+  }
+
+  &__session-item {
+    &--hidden {
+      visibility: hidden;
+    }
+  }
+}
