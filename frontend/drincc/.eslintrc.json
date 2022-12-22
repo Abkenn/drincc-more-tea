@@ -67,7 +67,16 @@
         "react/prop-types": "off",
         "react/react-in-jsx-scope": "off",
         "comma-dangle": "off",
-        "prefer-promise-reject-errors": "off"
+        "prefer-promise-reject-errors": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "warn", // or "error"
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ]
     },
     "ignorePatterns": [
         "**/*.svg",

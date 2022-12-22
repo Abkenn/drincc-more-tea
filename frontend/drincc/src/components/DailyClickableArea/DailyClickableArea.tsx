@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import classNames from 'classnames';
 import TeaSelect from '../TeaSelect/TeaSelect';
+import './index.scss';
 
 const DailyClickableArea: React.FunctionComponent<{
   teaSessions: number[],
@@ -16,16 +17,18 @@ const DailyClickableArea: React.FunctionComponent<{
     >
       <div className="daily-clickable-area__sessions">
         {[-1, ...teaSessions].map((session, index) => {
-          const shouldHideSelect = index === 0 && isClicked;
+          const shouldHideSelect = index === 0 && !isClicked;
           return (
             <div className={classNames({
               'daily-clickable-area__session-item': true,
               'daily-clickable-area__session-item--hidden': shouldHideSelect
             })}
             >
-              {shouldHideSelect ? (
+
+              {index === 0 && (
                 <TeaSelect />
-              ) : index !== 0 && (
+              )}
+              {index !== 0 && (
                 <div className="daily-clickable-area__session-item__title">
                   {session}
                 </div>

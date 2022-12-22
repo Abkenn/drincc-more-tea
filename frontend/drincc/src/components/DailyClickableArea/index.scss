@@ -1,9 +1,16 @@
 .daily-clickable-area {
+  height: calc(100vh - 4rem);
+
   &__sessions {
 
   }
 
   &__session-item {
+    background-color: lightgray;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     &--hidden {
       visibility: hidden;
     }
