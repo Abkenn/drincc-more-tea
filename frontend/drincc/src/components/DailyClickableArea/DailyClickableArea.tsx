@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useState } from 'react';
 import classNames from 'classnames';
+import Modal from '../Base/Modal/Modal';
 import TeaSelect from '../TeaSelect/TeaSelect';
 import './index.scss';
 
@@ -10,6 +11,8 @@ const DailyClickableArea: React.FunctionComponent<{
   onAddTeaSession?: (id: number) => void;
 }> = ({ teaSessions }) => {
   const [isClicked, setIsClicked] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
+
   return (
     <div
       className="daily-clickable-area"
@@ -26,7 +29,9 @@ const DailyClickableArea: React.FunctionComponent<{
             >
 
               {index === 0 && (
-                <TeaSelect />
+                <Modal active={isModalActive} onClose={() => setIsModalActive(false)} description="test">
+                  <TeaSelect />
+                </Modal>
               )}
               {index !== 0 && (
                 <div className="daily-clickable-area__session-item__title">

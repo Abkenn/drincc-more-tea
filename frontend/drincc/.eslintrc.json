@@ -68,6 +68,8 @@
         "react/react-in-jsx-scope": "off",
         "comma-dangle": "off",
         "prefer-promise-reject-errors": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [
             "warn", // or "error"
